@@ -15,7 +15,6 @@ use tokio::net::{TcpListener, TcpStream};
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
-    // let addr = SocketAddr::from(([127, 0, 0, 1], 8100));
     let addr = SocketAddr::new(cli.ip, cli.port);
 
     let listener = TcpListener::bind(addr).await?;
