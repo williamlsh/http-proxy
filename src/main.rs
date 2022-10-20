@@ -1,6 +1,10 @@
-use std::net::SocketAddr;
+use std::{
+    net::{IpAddr, SocketAddr},
+    str::FromStr,
+};
 
 use bytes::Bytes;
+use clap::Parser;
 use http_body::{combinators::BoxBody, Body, Empty, Full};
 use hyper::{
     server::conn::Http, service::service_fn, upgrade::Upgraded, Body as Recv, Method, Request,
@@ -10,7 +14,9 @@ use tokio::net::{TcpListener, TcpStream};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let addr = SocketAddr::from(([127, 0, 0, 1], 8100));
+    let cli = Cli::parse();
+    // let addr = SocketAddr::from(([127, 0, 0, 1], 8100));
+    let addr = SocketAddr::new(cli.ip, cli.port);
 
     let listener = TcpListener::bind(addr).await?;
     println!("Listening on http://{}", addr);
@@ -107,4 +113,19 @@ async fn tunnel(mut upgraded: Upgraded, addr: String) -> std::io::Result<()> {
     );
 
     Ok(())
+}
+
+#[derive(Parser)]
+struct Cli {
+    /// HTTP proxy server ip.
+    #[arg(default_value_t = default_ip())]
+    ip: IpAddr,
+
+    /// HTTP proxy server port.
+    #[arg(default_value_t = 1800)]
+    port: u16,
+}
+
+fn default_ip() -> IpAddr {
+    IpAddr::from_str("127.0.0.1").unwrap()
 }
