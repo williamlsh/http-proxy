@@ -11,4 +11,4 @@ clap = { version = "4.2", features = ["derive"] }
 http = "0.2"
 http-body = { version = "0.4" }
 hyper = { version = "0.14", features = [ "full"] }
-tokio = { version = "1.27", features = ["full"] }
+tokio = { version = "1.28", features = ["full"] }
