@@ -1,10 +1,5 @@
 FROM rust:slim AS builder
 
-RUN set -eux; \
-    apt-get update; \
-    apt-get install -y --no-install-recommends \
-    build-essential \
-
 WORKDIR /app
 
 COPY . .
