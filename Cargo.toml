@@ -12,7 +12,7 @@ clap = { version = "4.3", features = ["derive"] }
 http = "0.2"
 http-body = { version = "0.4" }
 hyper = { version = "0.14", features = [ "full"] }
-tokio = { version = "1.31", features = ["full"] }
+tokio = { version = "1.32", features = ["full"] }
 
 # The profile that 'cargo dist' will build with
 [profile.dist]
