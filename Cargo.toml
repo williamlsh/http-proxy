@@ -8,7 +8,7 @@ repository = "https://github.com/williamlsh/http-proxy"
 
 [dependencies]
 bytes = "1.4"
-clap = { version = "4.3", features = ["derive"] }
+clap = { version = "4.4", features = ["derive"] }
 http = "0.2"
 http-body = { version = "0.4" }
 hyper = { version = "0.14", features = [ "full"] }
