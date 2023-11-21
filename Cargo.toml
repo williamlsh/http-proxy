@@ -10,7 +10,7 @@ repository = "https://github.com/williamlsh/http-proxy"
 bytes = "1.5"
 clap = { version = "4.4", features = ["derive"] }
 http = "1.0"
-http-body = { version = "0.4" }
+http-body = { version = "1.0" }
 hyper = { version = "0.14", features = [ "full"] }
 tokio = { version = "1.34", features = ["full"] }
 
