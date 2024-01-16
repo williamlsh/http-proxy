@@ -25,4 +25,6 @@ RUN set -eux; \
 
 COPY --from=builder /app/target/release/http-proxy /app/http-proxy
 
+EXPOSE 8080
+
 ENTRYPOINT [ "/app/http-proxy" ]
