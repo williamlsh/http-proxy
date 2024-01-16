@@ -1,12 +1,8 @@
 mod tokiort;
 
-use std::{
-    net::{IpAddr, SocketAddr},
-    str::FromStr,
-};
+use std::net::SocketAddr;
 
 use bytes::Bytes;
-use clap::Parser;
 use http_body_util::{combinators::BoxBody, BodyExt, Empty, Full};
 use hyper::{
     client::conn::http1::Builder, server::conn::http1, service::service_fn, upgrade::Upgraded,
@@ -18,8 +14,11 @@ use tokiort::TokioIo;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let cli = Cli::parse();
-    let addr = SocketAddr::new(cli.ip, cli.port);
+    let ip = dotenvy::var("IP").unwrap_or("127.0.0.1".into());
+    let port = dotenvy::var("PORT").unwrap_or("8080".into());
+    let addr: SocketAddr = format!("{ip}:{port}")
+        .parse()
+        .expect("Failed to parse address");
 
     let listener = TcpListener::bind(addr).await?;
     println!("Listening on http://{}", addr);
@@ -138,19 +137,4 @@ async fn tunnel(upgraded: Upgraded, addr: String) -> std::io::Result<()> {
     );
 
     Ok(())
-}
-
-#[derive(Parser)]
-struct Cli {
-    /// HTTP proxy server ip.
-    #[arg(default_value_t = default_ip())]
-    ip: IpAddr,
-
-    /// HTTP proxy server port.
-    #[arg(default_value_t = 1800)]
-    port: u16,
-}
-
-fn default_ip() -> IpAddr {
-    IpAddr::from_str("127.0.0.1").unwrap()
 }
