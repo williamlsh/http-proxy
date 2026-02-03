@@ -5,7 +5,7 @@ edition = "2021"
 repository = "https://github.com/williamlsh/http-proxy"
 
 [dependencies]
-bytes = "1.10"
+bytes = "1.11"
 dotenvy = "0.15"
 http = "1.3"
 http-body = { version = "1.0" }
